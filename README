@@ -16,6 +16,9 @@ Setup:
     
 
 Goal:
-    1) To extend this stalk typicalSecurity project to integrate Spring-Social's Facebook and Twitter user authentication and connection management and to have that be persisted to a ROO implemented datastore. This should equivalent to functionality of the "showcase" example from https://github.com/SpringSource/spring-social-samples.git only modified to use a ROO backed local user system. 
+    1) To extend this stalk typicalSecurity project to integrate Spring-Social's Facebook and Twitter user authentication and connection management and to have that be persisted to a ROO implemented datastore. This should equivalent to functionality of the "showcase" example from https://github.com/SpringSource/spring-social-samples.git only modified to use a ROO backed local user system.
+
+Approach:
+    1) The intention is to integrate michaellavelle's work on the spring-social-security project with a typicalSecrity implementation. 
  
     

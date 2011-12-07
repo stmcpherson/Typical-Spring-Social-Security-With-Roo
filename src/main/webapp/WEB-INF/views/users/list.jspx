@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_pangeanembassy_security_domain_User" items="${users}" z="b5XVdUyMqQf7PH2W68JRzjsLdYw=">
+        <table:table data="${users}" id="l_pangeanembassy_security_domain_User" path="/users" z="eiyAN7Ca8/JTm3sy0yuJyyPK/bg=">
+            <table:column id="c_pangeanembassy_security_domain_User_firstName" property="firstName" z="5iVBK/jw+HyZTdxOuFl7GotHbzc="/>
+            <table:column id="c_pangeanembassy_security_domain_User_lastName" property="lastName" z="VVqdwajJE3Nf+gJV0OvGFm8+Pz4="/>
+            <table:column id="c_pangeanembassy_security_domain_User_emailAddress" property="emailAddress" z="NKGMMgco5K2MQhdgavt8tJ+Olng="/>
+            <table:column id="c_pangeanembassy_security_domain_User_password" property="password" z="pKq1iCjRPPpTWzdFZoujQHwg/24="/>
+            <table:column date="true" dateTimePattern="${user_activationdate_date_format}" id="c_pangeanembassy_security_domain_User_activationDate" property="activationDate" z="SBw3/zM0vp+QVx2wumXPVnXd0yk="/>
+            <table:column id="c_pangeanembassy_security_domain_User_activationKey" property="activationKey" z="ZJQAU7kZC19wTGmddOwtBJ3Tbnk="/>
+        </table:table>
+    </page:list>
+</div>

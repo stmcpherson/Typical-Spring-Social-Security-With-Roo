@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_pangeanembassy_security_domain_User" object="${user}" path="/users" z="I9LNFvVFBBU+4rg5VRhJ6ctDlqw=">
+        <field:display field="firstName" id="s_pangeanembassy_security_domain_User_firstName" object="${user}" z="zVbPu2cm28G5OHQxp49cdPSlDns="/>
+        <field:display field="lastName" id="s_pangeanembassy_security_domain_User_lastName" object="${user}" z="FawUsCmrWy4cjNC1t3fxV2xfA7o="/>
+        <field:display field="emailAddress" id="s_pangeanembassy_security_domain_User_emailAddress" object="${user}" z="yjS0Er/8EKrspMVTaGoq6WG8bUo="/>
+        <field:display field="password" id="s_pangeanembassy_security_domain_User_password" object="${user}" z="km8MzfGharCp76bqcJdedcX8ZJ0="/>
+        <field:display date="true" dateTimePattern="${user_activationdate_date_format}" field="activationDate" id="s_pangeanembassy_security_domain_User_activationDate" object="${user}" z="Uwd1vyJc+hfltPnJ0+9didUilu4="/>
+        <field:display field="activationKey" id="s_pangeanembassy_security_domain_User_activationKey" object="${user}" z="tZSQufzDzBemTSPUTO9ji6I928g="/>
+        <field:display field="enabled" id="s_pangeanembassy_security_domain_User_enabled" object="${user}" z="YCok7dntGl8MVfTfr/iz4lrb4g4="/>
+        <field:display field="locked" id="s_pangeanembassy_security_domain_User_locked" object="${user}" z="4NQIO7X5dVGosI+i+ys/y1Ea6h0="/>
+    </page:show>
+</div>

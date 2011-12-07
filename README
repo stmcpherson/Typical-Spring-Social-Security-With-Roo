@@ -1,0 +1,21 @@
+The goal of this project is to demonstrate a consolidated implementation of Spring-Security combined Spring-Social (facebook & twitter) using Spring Roo as the scaffolding for the local user and connection store. 
+
+The primary use case for this is to be a starting point for people who want a website that has a robust local user management system as well as uses Facebook et al. for connected authentication via Spring Social.
+
+The basics of this project were constructed using the typicalSecurity roo plugin. ** http://code.google.com/p/spring-roo-addon-typical-security/
+
+
+Setup:
+    1) Install STS <or use eclipse if you like>
+    2) Install MySQL
+    3) Create a mysql schema called pangeansecurity
+    4) git clone https://github.com/stmcpherson/Typical-Spring-Social-Security-With-Roo
+    5) Import the project into STS
+    6) Change the email.properties file to match your email account
+    7) Change the database.properties file to match your mysql connection information
+    
+
+Goal:
+    1) To extend this stalk typicalSecurity project to integrate Spring-Social's Facebook and Twitter user authentication and connection management and to have that be persisted to a ROO implemented datastore. This should equivalent to functionality of the "showcase" example from https://github.com/SpringSource/spring-social-samples.git only modified to use a ROO backed local user system. 
+ 
+    

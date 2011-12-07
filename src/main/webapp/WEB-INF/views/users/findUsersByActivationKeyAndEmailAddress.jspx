@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:find finderName="ByActivationKeyAndEmailAddress" id="ff_pangeanembassy_security_domain_User" path="/users" z="GIQJl7Ekk8Hjmpa35RkgyS53zy8=">
+        <field:input disableFormBinding="true" field="activationKey" id="f_pangeanembassy_security_domain_User_activationKey" required="true" z="RvUKOsTB1YauHXouWWdkk+OEV8A="/>
+        <field:input disableFormBinding="true" field="emailAddress" id="f_pangeanembassy_security_domain_User_emailAddress" min="1" required="true" validationMessageCode="field_invalid_email" z="IFCtV1p7NNCcwk54UyiuWC+OAp4="/>
+    </form:find>
+</div>

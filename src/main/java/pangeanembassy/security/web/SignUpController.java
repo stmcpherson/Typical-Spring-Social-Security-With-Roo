@@ -14,6 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionData;
+import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +26,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 
 import pangeanembassy.security.domain.User;
 
@@ -35,6 +42,9 @@ public class SignUpController {
     private transient MailSender mailSender;
 
     private transient SimpleMailMessage simpleMailMessage;
+    
+    @Autowired
+    private transient SignInAdapter signInService;
 
 	@Autowired
 	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
@@ -45,8 +55,24 @@ public class SignUpController {
     }
 
     @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String createForm(Model model) {
+    public String createForm(Model model,WebRequest request) {
     	UserRegistrationForm form = new UserRegistrationForm();
+    	Connection<?> connection = ProviderSignInUtils.getConnection(request);
+
+    	if (connection != null)
+		{
+		UserProfile userProfile = connection.fetchUserProfile();
+		form.setFirstName(userProfile.getFirstName());
+		form.setLastName(userProfile.getLastName());
+		form.setEmailAddress(userProfile.getEmail());
+
+
+		}
+    	
+    	
+    	
+    	
+    	
         model.addAttribute("User", form);
         model.addAttribute("captcha_form",form.getReCaptchaHtml());
         return "signup/index";
@@ -69,11 +95,11 @@ public class SignUpController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String create(@Valid UserRegistrationForm userRegistration, BindingResult result, Model model, HttpServletRequest request) {
+    public String create(WebRequest webRequest,@Valid UserRegistrationForm userRegistration, BindingResult result, Model model, HttpServletRequest request) {
         validator.validate(userRegistration, result);
         if (result.hasErrors()) {
         	
-            return createForm(model);
+            return createForm(model,webRequest);
         } else {
             Random random = new Random(System.currentTimeMillis());
             String activationKey = "activationKey:" + random.nextInt();
@@ -94,7 +120,15 @@ public class SignUpController {
     		mail.setSubject("User Activaton");
     		
     		mail.setText("Hi "+User.getFirstName()+",\n. You had registered with us. Please click on this link to activate your account - <a href=\"http://__BASE_URL__/signup?emailAddress="+User.getEmailAddress()+"&activate="+activationKey+"\">Activate Link</a>. \n Thanks Tyical Security Admin");
-            mailSender.send(mail);
+            
+    		
+			Connection<?> connection = ProviderSignInUtils.getConnection(new ServletWebRequest(request));
+			String userId = new Long(User.getId()).toString();
+			ProviderSignInUtils.handlePostSignUp(userId, new ServletWebRequest(request));
+			signInService.signIn(userId, connection, new ServletWebRequest(request));
+    		
+    		
+    		mailSender.send(mail);
             return "signup/thanks";
         }
     }

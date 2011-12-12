@@ -89,8 +89,10 @@ public class DatabaseAuthenticationProvider extends
 		      UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
 		logger.log(Priority.DEBUG, "Inside retrieveUser");
+		boolean checkPassword = !(authentication instanceof SpringSocialAuthenticationToken);
+		
 		String password = (String) authentication.getCredentials();
-	    if (! StringUtils.hasText(password)) {
+	    if (checkPassword && ! StringUtils.hasText(password)) {
 	      throw new BadCredentialsException("Please enter password");
 	    }
 	    String encryptedPassword = messageDigestPasswordEncoder.encodePassword(password, null); 
@@ -111,13 +113,14 @@ public class DatabaseAuthenticationProvider extends
 	    	TypedQuery<User> query= User.findUsersByEmailAddress(username);
 	    	
 	        User targetUser = (User) query.getSingleResult();
+
 	        // authenticate the person
 	        expectedPassword = targetUser.getPassword();
 	        if (! StringUtils.hasText(expectedPassword)) {
 	          throw new BadCredentialsException("No password for " + username + 
 	            " set in database, contact administrator");
 	        }
-	        if (! encryptedPassword.equals(expectedPassword)) {
+	        if (checkPassword && ! encryptedPassword.equals(expectedPassword)) {
 	          throw new BadCredentialsException("Invalid Password");
 	        }
 	        

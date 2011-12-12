@@ -5,6 +5,12 @@
   <definition extends="default" name="index">
     <put-attribute name="body" value="/WEB-INF/views/index.jspx"/>
   </definition>
+  
+    <definition extends="public" name="connect/twitterConnected">
+    <put-attribute name="body" value="/WEB-INF/views/twitterConnected.jspx"/>
+  </definition>
+  
+  
 
   <definition extends="public" name="dataAccessFailure">
     <put-attribute name="body" value="/WEB-INF/views/dataAccessFailure.jspx"/>

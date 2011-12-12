@@ -84,4 +84,41 @@
             </props>
         </property>
     </bean>
+    
+    
+	<bean id="usersConnectionRepository"
+		class="pangeanembassy.security.web.CustomUsersConnectionRepository">
+		<constructor-arg ref="dataSource" />
+		<constructor-arg ref="connectionFactoryLocator" />
+
+		<constructor-arg ref="textEncryptor" />
+	<!-- 
+		<property name="connectionSignUp" ref="customConnectionSignUp" />
+ -->
+	</bean>
+	
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+		factory-method="noOpText" />
+	
+
+	<bean
+		class="org.springframework.social.connect.jdbc.JdbcConnectionRepository"
+		id="connectionRepository" factory-method="createLocalConnectionRepository"
+		factory-bean="usersConnectionRepository" scope="request">
+		<constructor-arg value="#{request.userPrincipal.name}" />
+		<aop:scoped-proxy proxy-target-class="true" />
+	</bean>
+	
+	
+	<!-- Start Spring Social Security -->
+	<import resource="classpath:/spring-social-security-config.xml" />
+
+	<!-- Scan classpath for components, including our Social Security Configuration 
+		class -->
+	<context:component-scan
+		base-package="org.socialsignin.springframework.social.security.signin" />
+		
+		
+    
+    
 </beans>

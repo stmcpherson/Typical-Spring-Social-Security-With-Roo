@@ -54,3 +54,5 @@ Modifications made by Michael Lavelle on 12/12/2011:
         Added twitter dependency and changed connect interceptor to twitter, and added twitter to connection factory registry
 
         Added twitterConnected view
+
+More detail about approach taken to follow over the coming days

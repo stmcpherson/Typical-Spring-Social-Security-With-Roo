@@ -115,9 +115,9 @@
 
 	<!-- Scan classpath for components, including our Social Security Configuration 
 		class -->
-	<context:component-scan
-		base-package="org.socialsignin.springframework.social.security.signin" />
-		
+
+
+	<bean id="springSocialSecuritySignInService" class="org.socialsignin.springframework.social.security.signin.SpringSocialSecuritySignInService" />
 		
     
     

@@ -14,7 +14,9 @@ Setup:
     6) Change the email.properties file to match your email account
     7) Change the database.properties file to match your mysql connection information
     8) Populate the springsocial.properties file with your twitter and facebook client ids and secrets
-    9  Create a UserConnection table within the pangeansecurity schema and create an index
+    9) Ensure your Facebook client account is configured as having an application url of
+       http://localhost:8080/PangeanSecurity/signin/facebook
+    10)  Create a UserConnection table within the pangeansecurity schema and create an index
     using the script at 
     
     https://github.com/SpringSource/spring-social/blob/master/spring-social-core/src/main/java/org/springframework/social/connect/jdbc/JdbcUsersConnectionRepository.sql
@@ -26,4 +28,33 @@ Goal:
 Approach:
     1) The intention is to integrate michaellavelle's work on the spring-social-security project with a typicalSecrity implementation. 
  
-    
+        
+Modifications made by Michael Lavelle on 12/12/2011:
+
+        Updated spring security to Spring 3.1 (some of spring-social's classes depend on 3.1 version of Spring Security) and changed construction of password encoder bean to allow for this update.
+
+        Created new springsocial.properties to contain twitter and facebook client ids and secrets
+
+        Added dependency to pom for spring-social-web,spring-social-facebook,spring-social-twitter and spring-social-security
+
+        Added property placeholder configuration to webmvc-config.xml and added ProviderSignInController and ConnectController beans to webmvc-config.xml
+
+        Added Config class containing Spring Social connection registry and connection registry locator, and registered facebook and twitter connection factories.
+
+        Created CustomUsersConnectionRepository and added this and the ConnectionRepository to applicationConfig.xml
+
+        Imported spring-social-security package (so we can use SpringSocialSecuritySignInService as our sign in adapter)
+
+        Added this sign in adapter to SignUpController and call ProviderSignInUtils.handlePostSignUp and signInService.signIn(userId, connection, new ServletWebRequest(request));
+
+        Added WebRequest parameter to SignUpController methods createForm and create - to pre-populate sign up form with facebook or twitter details
+
+        Created a custom authentication filter and added this filter to security config
+
+        Created TwitterConnectInterceptor and added ConnectController and registeredit
+
+        Added twitter dependency and changed connect interceptor to twitter, and added twitter to connection factory registry
+
+        Added twitterConnected view
+
+More detail about approach taken to follow over the coming days

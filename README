@@ -14,7 +14,9 @@ Setup:
     6) Change the email.properties file to match your email account
     7) Change the database.properties file to match your mysql connection information
     8) Populate the springsocial.properties file with your twitter and facebook client ids and secrets
-    9  Create a UserConnection table within the pangeansecurity schema and create an index
+    9) Ensure your Facebook client account is configured as having an application url of
+       http://localhost:8080/PangeanSecurity/signin/facebook
+    10)  Create a UserConnection table within the pangeansecurity schema and create an index
     using the script at 
     
     https://github.com/SpringSource/spring-social/blob/master/spring-social-core/src/main/java/org/springframework/social/connect/jdbc/JdbcUsersConnectionRepository.sql

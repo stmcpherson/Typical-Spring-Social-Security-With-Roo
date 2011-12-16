@@ -15,7 +15,8 @@ Setup:
     7) Change the database.properties file to match your mysql connection information
     8) Populate the springsocial.properties file with your twitter and facebook client ids and secrets
     9) Ensure your Facebook client account is configured as having an application url of
-       http://localhost:8080/PangeanSecurity/signin/facebook
+       http://localhost:8080/PangeanSecurity - this ensures that *both* signin and connect callbacks are
+       permitted
     10)  Create a UserConnection table within the pangeansecurity schema and create an index
     using the script at 
     

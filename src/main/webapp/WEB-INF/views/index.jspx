@@ -14,5 +14,10 @@
      <form class="login" action="http://localhost:8080/PangeanSecurity/connect/twitter" method="POST">
 	<p><input type="submit" value="Connect with Twitter" /></p>
 </form> 
+ <form class="login" action="http://localhost:8080/PangeanSecurity/connect/facebook" method="POST">
+			<input type="hidden" name="scope" value="email" />
+	
+	<p><input type="submit" value="Connect with Facebook" /></p>
+</form> 
   </util:panel>
 </div>

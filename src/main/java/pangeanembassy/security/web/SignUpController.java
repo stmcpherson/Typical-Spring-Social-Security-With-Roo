@@ -37,17 +37,14 @@ public class SignUpController {
 
     @Autowired
     private SignUpValidator validator;
-
+    
     @Autowired
-    private transient MailSender mailSender;
+    private CreateUserAccountService createUserAccountService;
 
-    private transient SimpleMailMessage simpleMailMessage;
     
     @Autowired
     private transient SignInAdapter signInService;
 
-	@Autowired
-	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
 
     @ModelAttribute("User")
     public UserRegistrationForm formBackingObject() {
@@ -56,26 +53,26 @@ public class SignUpController {
 
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String createForm(Model model,WebRequest request) {
-    	UserRegistrationForm form = new UserRegistrationForm();
     	Connection<?> connection = ProviderSignInUtils.getConnection(request);
 
     	if (connection != null)
 		{
-		UserProfile userProfile = connection.fetchUserProfile();
-		form.setFirstName(userProfile.getFirstName());
-		form.setLastName(userProfile.getLastName());
-		form.setEmailAddress(userProfile.getEmail());
-
-
+			UserProfile userProfile = connection.fetchUserProfile();
+			SocialUserRegistrationForm form = new SocialUserRegistrationForm();
+			createUserAccountService.setDefaultRegistrationValues(form,userProfile);
+        	model.addAttribute("User", form);
+            return "signup/socialindex";
 		}
-    	
-    	
-    	
-    	
-    	
-        model.addAttribute("User", form);
-        model.addAttribute("captcha_form",form.getReCaptchaHtml());
-        return "signup/index";
+    	else
+    	{
+        	UserRegistrationForm form = new UserRegistrationForm();
+        	model.addAttribute("User", form);
+            model.addAttribute("captcha_form",form.getReCaptchaHtml());
+            return "signup/index";
+
+    	}
+    		
+      
     }
     
     @RequestMapping(params = "activate", method = RequestMethod.GET)
@@ -101,35 +98,33 @@ public class SignUpController {
         	
             return createForm(model,webRequest);
         } else {
-            Random random = new Random(System.currentTimeMillis());
-            String activationKey = "activationKey:" + random.nextInt();
-
-            User User = new User();
-            User.setActivationDate(null);
-            User.setEmailAddress(userRegistration.getEmailAddress());
-            User.setFirstName(userRegistration.getFirstName());
-            User.setLastName(userRegistration.getLastName());
-            User.setPassword(messageDigestPasswordEncoder.encodePassword(userRegistration.getPassword(), null));
-            User.setActivationKey(activationKey);
-            User.setEnabled(false);
-            User.setLocked(false);
-            User.persist();
-            
-            SimpleMailMessage mail = new SimpleMailMessage();
-    		mail.setTo(User.getEmailAddress());
-    		mail.setSubject("User Activaton");
-    		
-    		mail.setText("Hi "+User.getFirstName()+",\n. You had registered with us. Please click on this link to activate your account - <a href=\"http://__BASE_URL__/signup?emailAddress="+User.getEmailAddress()+"&activate="+activationKey+"\">Activate Link</a>. \n Thanks Tyical Security Admin");
-            
-    		
-			Connection<?> connection = ProviderSignInUtils.getConnection(new ServletWebRequest(request));
+        	User User = createUserAccountService.createUserAccount(userRegistration);
+			
+        	Connection<?> connection = ProviderSignInUtils.getConnection(new ServletWebRequest(request));
 			String userId = new Long(User.getId()).toString();
 			ProviderSignInUtils.handlePostSignUp(userId, new ServletWebRequest(request));
 			signInService.signIn(userId, connection, new ServletWebRequest(request));
     		
+    		return "signup/thanks";
+        }
+    }
+  
+    
+    
+    @RequestMapping(value="/social",method = RequestMethod.POST)
+    public String createFromSocialRegistrationForm(WebRequest webRequest,@Valid SocialUserRegistrationForm socialUserRegistration, BindingResult result, Model model, HttpServletRequest request) {
+        Connection<?> connection = ProviderSignInUtils.getConnection(webRequest);
+        if (result.hasErrors() || connection == null) {
+        	
+            return createForm(model,webRequest);
+        } else {
+        	User User = createUserAccountService.createUserAccount(socialUserRegistration,connection.fetchUserProfile());
+			
+			String userId = new Long(User.getId()).toString();
+			ProviderSignInUtils.handlePostSignUp(userId, new ServletWebRequest(request));
+			signInService.signIn(userId, connection, new ServletWebRequest(request));
     		
-    		mailSender.send(mail);
-            return "signup/thanks";
+    		return "signup/thanks";
         }
     }
 
@@ -147,9 +142,5 @@ public class SignUpController {
         return "signup/error";
     }
 
-    public void sendMessage(String mailTo, String message) {
-        simpleMailMessage.setTo(mailTo);
-        simpleMailMessage.setText(message);
-        mailSender.send(simpleMailMessage);
-    }
+    
 }

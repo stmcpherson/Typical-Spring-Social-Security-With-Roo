@@ -10,6 +10,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
 import javax.sql.DataSource;
 
+import org.socialsignin.springframework.social.security.connect.jdbc.SpringSocialSecurityJdbcUsersConnectionRepository;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.Connection;
@@ -20,7 +21,7 @@ import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 
 import pangeanembassy.security.domain.User;
 
-public class CustomUsersConnectionRepository extends JdbcUsersConnectionRepository  
+public class CustomUsersConnectionRepository extends SpringSocialSecurityJdbcUsersConnectionRepository  
 implements UsersConnectionRepository
 {
 	@Inject

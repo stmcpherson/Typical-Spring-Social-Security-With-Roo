@@ -90,6 +90,11 @@
 		class="pangeanembassy.security.web.CustomUsersConnectionRepository">
 		<constructor-arg ref="dataSource" />
 		<constructor-arg ref="connectionFactoryLocator" />
+		<!--  This connection sign up checks to see if the user is available from the 3rd party,
+		if so an account is created by default without the user needing to see the social user
+		registration form asking for an email addresss.  Remove this connection sign up to 
+		have the user confirm the email address obtained from 3rd party -->
+		<property name="connectionSignUp" ref="useEmailAddressIfAvailableConnectionSignUp" />
 
 		<constructor-arg ref="textEncryptor" />
 	<!-- 

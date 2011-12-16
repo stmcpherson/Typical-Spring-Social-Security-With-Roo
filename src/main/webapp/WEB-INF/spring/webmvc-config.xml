@@ -16,6 +16,8 @@
 		<property name="interceptors">
 			<list>
     	    	<ref bean="twitterConnectInterceptor" />
+    	    	<ref bean="facebookConnectInterceptor" />
+    	    	
 			</list>
 		</property>
 	</bean>
@@ -26,6 +28,7 @@
 		<property name="signUpUrl" value="/signup?form" />
 		<property name="applicationUrl" value="${application.baseUrl}" />
 		<property name="postSignInUrl" value="/authenticate" />
+		
 		<!-- 
 		<property name="signInUrl" value="/socialsignin" />
  -->

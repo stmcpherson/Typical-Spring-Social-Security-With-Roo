@@ -4,6 +4,9 @@
 	<definition extends="default" name="signup/index">
 		<put-attribute name="body" value="/WEB-INF/views/signup/index.jspx" />
 	</definition>
+	<definition extends="default" name="signup/socialindex">
+		<put-attribute name="body" value="/WEB-INF/views/signup/socialindex.jspx" />
+	</definition>
 	<definition extends="default" name="signup/thanks">
 		<put-attribute name="body" value="/WEB-INF/views/signup/thanks.jspx" />
 	</definition>

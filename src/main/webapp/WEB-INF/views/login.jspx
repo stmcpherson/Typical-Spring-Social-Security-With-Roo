@@ -58,6 +58,8 @@
     <div>&lt;br/&gt;&lt;a href ="/PangeanSecurity/forgotpassword/index"&gt;Forgot Password&lt;/a&gt; | Not a User Yet? &lt;a href ="/PangeanSecurity/signup?form"&gt;Sign Up&lt;/a&gt;</div>
         </form>
                   <form class="login" action="http://localhost:8080/PangeanSecurity/signin/facebook" method="POST">
+		<input type="hidden" name="scope" value="email" />
+	
 	<p><input type="submit" value="SignUp/Login with Facebook" /></p>
 </form> 
  <form class="login" action="http://localhost:8080/PangeanSecurity/signin/twitter" method="POST">

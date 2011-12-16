@@ -10,6 +10,9 @@
     <put-attribute name="body" value="/WEB-INF/views/twitterConnected.jspx"/>
   </definition>
   
+      <definition extends="public" name="connect/facebookConnected">
+    <put-attribute name="body" value="/WEB-INF/views/facebookConnected.jspx"/>
+  </definition>
   
 
   <definition extends="public" name="dataAccessFailure">

@@ -77,5 +77,7 @@ Modifications made by Michael Lavelle on 16th Dec 2011 (fixes for issues #1,#2,#
 
         Added ability to Connect with Facebook after login (added new form submit to home page, added facebookConnected view. and changed requirements of project so that callback url in Facebook is
         configured to be base url (http://localhost:8080/PangeanSecurity) to allow for both /signin/facebook and /connect/facebook callback urls).
-        
+
+        Now passing "scope=email" request params to Facebook submit forms to request email address on signin
+
         Added FacebookConnectInterceptor and registered this with ConnectController

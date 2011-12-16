@@ -30,7 +30,7 @@ Approach:
     1) The intention is to integrate michaellavelle's work on the spring-social-security project with a typicalSecrity implementation. 
  
         
-Modifications made by Michael Lavelle on 12/12/2011:
+Modifications made by Michael Lavelle on 12 Dec 2011:
 
         Updated spring security to Spring 3.1 (some of spring-social's classes depend on 3.1 version of Spring Security) and changed construction of password encoder bean to allow for this update.
 
@@ -58,4 +58,24 @@ Modifications made by Michael Lavelle on 12/12/2011:
 
         Added twitterConnected view
 
-More detail about approach taken to follow over the coming days
+Modifications made by Michael Lavelle on 16th Dec 2011 (fixes for issues #1,#2,#3 and #4)
+
+        Refactored user account creation code into CreateUserAccountService
+
+        Modified SignUpController so that it uses this new CreateUserAccountService for standard registration process.
+
+        Created new SocialUserRegistrationForm to capture/validate registration details of users signing up using Social Provider (just contains email address for now)
+
+        Added new methods to CreateUserAccountService for creation of user given a SocialUserRegistrationForm and a UserProfile obtained from 3rd party.
+
+        Added new requestmapping method to SignUpController to handle submission of SocialUserRegistrationForms, and modified view form method to show different forms depending
+        on whether user is signing up using standard process or via 3rd party.  Created to view for this form (socialindex.jspx) and registered it in views.xml
+
+        Created UseEmailAddressIfAvailableConnectionSignUp which uses CreateUserAccountService to implicitly register Social Provider users after authentication if an email address is available and registered this with usersConnectionRepository.  
+
+        Changed CustomUsersConnectionRepository so that it now extends SpringSocialSecurityJdbcUsersConnectionRepository which allows for nulls coming back from UseEmailAddressIfAvailableConnectionSignUp in event email address is not available.
+
+        Added ability to Connect with Facebook after login (added new form submit to home page, added facebookConnected view. and changed requirements of project so that callback url in Facebook is
+        configured to be base url (http://localhost:8080/PangeanSecurity) to allow for both /signin/facebook and /connect/facebook callback urls).
+        
+        Added FacebookConnectInterceptor and registered this with ConnectController

@@ -107,7 +107,7 @@
 	
 
 	<bean
-		class="org.springframework.social.connect.jdbc.JdbcConnectionRepository"
+		class="org.springframework.social.connect.jpa.JpaConnectionRepository"
 		id="connectionRepository" factory-method="createLocalConnectionRepository"
 		factory-bean="usersConnectionRepository" scope="request">
 		<constructor-arg value="#{request.userPrincipal.name}" />

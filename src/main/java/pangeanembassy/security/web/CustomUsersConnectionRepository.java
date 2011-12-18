@@ -18,17 +18,28 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.jpa.JpaTemplate;
+import org.springframework.social.connect.jpa.JpaUsersConnectionRepository;
 
 import pangeanembassy.security.domain.User;
 
-public class CustomUsersConnectionRepository extends SpringSocialSecurityJdbcUsersConnectionRepository  
+/**
+ * Custom UsersConnectionRepository which bridges between local authentications (with email address principals)
+ * to social authentications (with numeric user id principals).  This class could extend SpringSocialSecurityJdbcUsersConnectionRepository
+ * in order to use spring-social's jdbc connection factory with a fix for nulls returned from a ConnectionSignUp
+ * implementation in event a local account cannot be created.  Or this class could extend JpaUserConnectionRepository
+ * to use spring-social-jpa implementation.
+ * 
+ * @author Michael Lavelle
+ */
+public class CustomUsersConnectionRepository extends JpaUsersConnectionRepository  
 implements UsersConnectionRepository
 {
 	@Inject
-	public CustomUsersConnectionRepository(DataSource dataSource,
+	public CustomUsersConnectionRepository(JpaTemplate jpaTemplate,
 			ConnectionFactoryLocator connectionFactoryLocator,
 			TextEncryptor textEncryptor) {
-		super(dataSource, connectionFactoryLocator, textEncryptor);
+		super(jpaTemplate, connectionFactoryLocator, textEncryptor);
 	}
 	
 	private String getLocalUserId(String springSocialUserId)

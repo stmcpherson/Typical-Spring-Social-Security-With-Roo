@@ -81,7 +81,12 @@ Modifications made by Michael Lavelle on 16th Dec 2011 (fixes for issues #1,#2,#
 
 Modifications made by Michael Lavelle on 18th Dec 2011 (fix for issue #5)
 
-        Added dependency to pom.xml for spring-social-jpa ( https://github.com/michaellavelle/spring-social-jpa )
+        Forked https://github.com/mschipperheyn/spring-social-jpa to https://github.com/michaellavelle/spring-social-jpa
+
+        Fixed issue with spring-social-jpa where 'mvn clean install' was generating compile errors and submitted pull
+        request to bring fix in https://github.com/michaellavelle/spring-social-jpa back into https://github.com/mschipperheyn/spring-social-jpa )
+
+        Added dependency to pom.xml for spring-social-jpa ( Use https://github.com/michaellavelle/spring-social-jpa until pull request is accepted)
         
         Created new Roo entity and aspects for UserConnection.
 

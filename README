@@ -14,13 +14,11 @@ Setup:
     6) Change the email.properties file to match your email account
     7) Change the database.properties file to match your mysql connection information
     8) Populate the springsocial.properties file with your twitter and facebook client ids and secrets
-    9) Ensure you have installed spring-social-jpa and spring-social-security into your local repository 
+    9) Ensure your Facebook client account is configured as having an application url of
+       http://localhost:8080/PangeanSecurity - this ensures that *both* signin and connect callbacks are
+       permitted
+    10) Ensure you have installed spring-social-jpa and spring-social-security into your local repository 
         ( https://github.com/michaellavelle/spring-social-jpa and https://github.com/socialsignin/spring-social-security )
-    10)  Create a UserConnection table within the pangeansecurity schema and create an index
-    using the script at 
-    
-    https://github.com/SpringSource/spring-social/blob/master/spring-social-core/src/main/java/org/springframework/social/connect/jdbc/JdbcUsersConnectionRepository.sql
-    
 
 Goal:
     1) To extend this stalk typicalSecurity project to integrate Spring-Social's Facebook and Twitter user authentication and connection management and to have that be persisted to a ROO implemented datastore. This should equivalent to functionality of the "showcase" example from https://github.com/SpringSource/spring-social-samples.git only modified to use a ROO backed local user system.

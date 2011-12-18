@@ -81,3 +81,18 @@ Modifications made by Michael Lavelle on 16th Dec 2011 (fixes for issues #1,#2,#
         Now passing "scope=email" request params to Facebook submit forms to request email address on signin
 
         Added FacebookConnectInterceptor and registered this with ConnectController
+
+Modifications made by Michael Lavelle on 18th Dec 2011 (fix for issue #5)
+
+        Added dependency to pom.xml for spring-social-jpa ( https://github.com/michaellavelle/spring-social-jpa )
+        
+        Created new Roo entity and aspects for UserConnection.
+
+        Created RemoteUserConnectionAdapter to adapt UserConnection to a RemoteUser as required by spring-social-jpa
+
+        Created an implementation of JpaTemplate for UserConnections and registered as a service as required by spring-social-jpa
+
+        Modified CustomUsersConnectionRepository to now extend JpaUsersConnectionRepository
+
+        Modified bean definition for connectionRepository to be an instance of JpaConnectionRepository
+        

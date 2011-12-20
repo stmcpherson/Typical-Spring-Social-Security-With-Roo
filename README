@@ -98,3 +98,7 @@ Modifications made by Michael Lavelle on 18th Dec 2011 (fix for issue #5)
 
         Modified bean definition for connectionRepository to be an instance of JpaConnectionRepository
         
+Modifiications made by Michael Lavelle on 20th Dec 2011 (fix for issue #6)
+
+        Modified RooUserConnectionTemplate to make cleaner more efficient and added findMaxRankByUserIdAndProviderId and findUserIdsByProviderIdAndProviderUserIds finder methods to
+        support this.

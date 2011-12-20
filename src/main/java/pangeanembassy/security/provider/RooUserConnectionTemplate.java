@@ -36,20 +36,8 @@ public class RooUserConnectionTemplate implements JpaTemplate {
 	@Override
 	public Set<String> findUsersConnectedTo(String providerId,
 			Set<String> providerUserIds) {
-		Set<String> userIds = new HashSet<String>();
-		for (String providerUserId : providerUserIds)
-		{
-			List<RemoteUser> users = get(providerId,providerUserId);
-			for (RemoteUser user : users)
-			{
-				String userId = user.getUserId();
-				if (!userIds.contains(userId))
-				{
-					userIds.add(userId);
-				}
-			}
-		}
-		return userIds;
+		
+		return new HashSet<String>(UserConnection.findUserIdsByProviderIdAndProviderUserIds(providerId,providerUserIds).getResultList());
 	}
 
 	@Override
@@ -60,24 +48,14 @@ public class RooUserConnectionTemplate implements JpaTemplate {
 			remoteUsers.add(new RemoteUserConnectionAdapter(userConnection));
 		}
 		return remoteUsers;
-		
-		
 	}
 
 	@Override
 	@Transactional
 	public int getRank(String userId, String providerId) {
 		
-		int maxRank = 0;
-		for (UserConnection userConnection : UserConnection.findUserConnectionsByUserIdAndProviderIdAndRank(userId,providerId,1).getResultList())
-		{
-			int rank = userConnection.getRank();
-			if (rank > maxRank)
-			{
-				maxRank = rank;
-			}
-		}
-		return maxRank + 1;
+		Integer maxRank = UserConnection.findMaxRankByUserIdAndProviderId(userId,providerId).getSingleResult();
+		return maxRank == null ? 1 : (maxRank.intValue() + 1);
 	}
 
 	@Override

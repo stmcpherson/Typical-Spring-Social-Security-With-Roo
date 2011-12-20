@@ -100,6 +100,7 @@ privileged aspect UserConnection_Roo_Entity {
         return entityManager().createQuery("SELECT o FROM UserConnection o", UserConnection.class).getResultList();
     }
     
+  
     public static UserConnection UserConnection.findUserConnection(Long id) {
         if (id == null) return null;
         return entityManager().find(UserConnection.class, id);

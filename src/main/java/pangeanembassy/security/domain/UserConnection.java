@@ -14,7 +14,7 @@ import pangeanembassy.security.domain.Role;
 @RooToString
 @RooEntity(finders = { "findUserConnectionsByUserId","findUserConnectionsByUserIdAndProviderId",
 		"findUserConnectionsByUserIdAndProviderIdAndRank","findUserConnectionsByProviderIdAndProviderUserId",
-		"findUserConnectionByUserIdAndProviderIdAndProviderUserId"})
+		"findUserConnectionByUserIdAndProviderIdAndProviderUserId","findMaxRankByUserIdAndProviderId","findUserIdsByProviderIdAndProviderUserIds"})
 public class UserConnection{
 
 	private String accessToken;

@@ -32,6 +32,11 @@
             <name>Spring Roo Repository</name>
             <url>http://spring-roo-repository.springsource.org/release</url>
         </repository>
+        <repository>
+	        <id>opensourceagility-snapshots</id>
+	        <name>OpenSource Agility Snapshot Repository</name>
+	        <url>https://github.com/OpenSourceAgility/opensourceagility-mvn-repo/raw/master/snapshots</url>
+	    </repository>
     <repository>
             <id>JBoss Repo</id>
             <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
